@@ -1,0 +1,7 @@
+# Runtime Python dependencies inferred from project imports
+pyodbc>=4.0
+
+# Notes:
+# - This project connects to Microsoft SQL Server via ODBC. Ensure the system has an appropriate ODBC driver installed
+#   (for example: "ODBC Driver 17 for SQL Server" or newer on Windows/Linux).
+# - If you prefer a different driver (e.g. pymssql) add it here.

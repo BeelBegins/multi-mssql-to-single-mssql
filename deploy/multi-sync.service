@@ -1,0 +1,16 @@
+[Unit]
+Description=Multi MSSQL Consolidation Sync Service
+After=network.target
+
+[Service]
+Type=simple
+User=syncuser
+WorkingDirectory=/opt/multi-sync
+# Activate virtualenv and run main.py
+ExecStart=/bin/bash -lc 'source /opt/multi-sync/.venv/bin/activate && exec python main.py'
+Restart=on-failure
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

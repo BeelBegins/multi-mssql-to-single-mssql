@@ -54,6 +54,31 @@ Or use Task Scheduler for scheduled runs.
 Linux (systemd)
 - Create a unit file `/etc/systemd/system/multi-sync.service` that runs a small shell wrapper to activate the virtualenv and run `python main.py`.
 
+Service examples
+---------------
+
+I added small example files under `deploy/` in this repository to make deploying easier:
+
+- `deploy/run_windows_service.ps1` — PowerShell wrapper you can call from NSSM or Task Scheduler. It activates a virtualenv (if present) and runs `main.py`, capturing stdout/stderr to `log/service_stdout.log`.
+- `deploy/multi-sync.service` — example `systemd` unit for Linux hosts. Place it in `/etc/systemd/system/` and adapt `WorkingDirectory`, `User`, and `ExecStart` to your environment.
+
+Windows (NSSM) quick example
+- Install NSSM and create a service that calls PowerShell to run the wrapper script. Example NSSM configuration:
+   - Application: `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
+   - Arguments: `-NoProfile -ExecutionPolicy Bypass -File "C:\opt\multi-sync\deploy\run_windows_service.ps1"`
+   - Startup directory: `C:\opt\multi-sync`
+
+Linux (systemd) quick example
+- Copy `deploy/multi-sync.service` to `/etc/systemd/system/multi-sync.service`, then run:
+
+```powershell
+sudo systemctl daemon-reload
+sudo systemctl enable --now multi-sync.service
+sudo journalctl -u multi-sync.service -f
+```
+
+Adjust `User`, `WorkingDirectory`, and the `ExecStart` activation line as needed for your virtualenv path.
+
 6. Logging & rotation
 - Ensure logs in `log/` are rotated (Windows: use scheduled task or tools; Linux: logrotate) to avoid disk fill.
 - Configure external log shipping (Splunk/ELK/CloudWatch) for production monitoring.
