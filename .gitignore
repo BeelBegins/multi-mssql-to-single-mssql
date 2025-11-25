@@ -1,0 +1,44 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Editor/project files
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+
+# Logs and runtime files
+log/
+*.log
+
+# Connection strings and secrets
+connection_strings.txt
+.env
+*.secret
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database files
+*.sqlite3
+*.db
+
+# Distribution/build
+build/
+dist/
+*.egg-info/
+
+# Ignore compiled python bytecode directories
+*/__pycache__/
